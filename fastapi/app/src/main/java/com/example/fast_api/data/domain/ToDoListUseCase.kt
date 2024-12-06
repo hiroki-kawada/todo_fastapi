@@ -6,6 +6,8 @@ import javax.inject.Inject
 
 interface ToDoListUseCase {
     suspend fun getToDoList(): List<ToDoItemData>
+
+    suspend fun addTask(): String
 }
 
 class ToDoListUseCaseImpl @Inject constructor(
@@ -19,6 +21,10 @@ class ToDoListUseCaseImpl @Inject constructor(
             itemList.add(data)
         }
         return itemList
+    }
+
+    override suspend fun addTask(): String {
+        return  mToDoListRepository.addTask()
     }
 
 }

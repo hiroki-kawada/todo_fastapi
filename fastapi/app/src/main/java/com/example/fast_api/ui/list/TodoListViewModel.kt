@@ -1,13 +1,16 @@
 package com.example.fast_api.ui.list
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fast_api.data.domain.ToDoListUseCase
 import com.example.fast_api.data.local.ToDoItemData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -27,7 +30,6 @@ class TodoListViewModel @Inject constructor(
 
     private fun getTodoList() {
         listUiState = ListUiState.Loading
-
         viewModelScope.launch {
             listUiState = try {
                 val detailResult = mToDoListUseCase.getToDoList()
@@ -35,6 +37,13 @@ class TodoListViewModel @Inject constructor(
             } catch (e: IOException) {
                 ListUiState.Error
             }
+        }
+    }
+
+    fun addTask() {
+        viewModelScope.launch {
+            val message = mToDoListUseCase.addTask()
+            Log.d("kawa",message)
         }
     }
 

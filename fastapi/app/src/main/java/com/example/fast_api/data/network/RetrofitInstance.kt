@@ -11,7 +11,7 @@ object RetrofitInstance {
     /**
      * ベースURL(dokka起動中のPCのIPアドレス)
      */
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://192.168.11.9:8080/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
